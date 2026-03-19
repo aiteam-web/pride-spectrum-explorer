@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import ProgressBar from "./ProgressBar";
 import OptionButton from "./OptionButton";
 import HistoryScreen from "./HistoryScreen";
@@ -30,13 +30,24 @@ const ExplorerFlow = () => {
   const [answers, setAnswers] = useState<Answers>({});
   const [showHistory, setShowHistory] = useState(false);
   const [feedbackGiven, setFeedbackGiven] = useState(false);
+  const [transitioning, setTransitioning] = useState(false);
+  const [direction, setDirection] = useState<"forward" | "back">("forward");
 
   const setAnswer = (key: keyof Answers, value: string) => {
     setAnswers((prev) => ({ ...prev, [key]: value }));
   };
 
-  const next = () => setScreen((s) => s + 1);
-  const prev = () => setScreen((s) => Math.max(0, s - 1));
+  const goTo = (target: number) => {
+    setDirection(target > screen ? "forward" : "back");
+    setTransitioning(true);
+    setTimeout(() => {
+      setScreen(target);
+      setTransitioning(false);
+    }, 250);
+  };
+
+  const next = () => goTo(screen + 1);
+  const prev = () => goTo(Math.max(0, screen - 1));
 
   const generateResult = (): string[] => {
     const lines: string[] = [];
@@ -94,11 +105,11 @@ const ExplorerFlow = () => {
       case 0:
         return (
           <ScreenWrapper>
-            <h1 className="text-2xl font-semibold text-foreground mb-4">Sexuality Spectrum Explorer</h1>
-            <p className="text-muted-foreground text-justified leading-relaxed">
-              Explore your attraction, at your own pace.
-            </p>
-            <div className="mt-8">
+            <div className="text-center">
+              <h1 className="text-2xl font-semibold text-foreground mb-4">Sexuality Spectrum Explorer</h1>
+              <p className="text-muted-foreground leading-relaxed mb-8">
+                Explore your attraction, at your own pace.
+              </p>
               <PrimaryButton onClick={next}>Start</PrimaryButton>
             </div>
           </ScreenWrapper>
@@ -317,7 +328,7 @@ const ExplorerFlow = () => {
                   </div>
                 )}
                 <div className="flex gap-3">
-                  <PrimaryButton onClick={() => { saveToHistory(); setScreen(0); setAnswers({}); setFeedbackGiven(false); }}>
+                  <PrimaryButton onClick={() => { saveToHistory(); goTo(0); setAnswers({}); setFeedbackGiven(false); }}>
                     Save & Done
                   </PrimaryButton>
                   <SecondaryButton onClick={() => setShowHistory(true)}>
@@ -338,14 +349,26 @@ const ExplorerFlow = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col items-center">
-      <div className="w-full max-w-md mx-auto px-5 py-6 flex flex-col min-h-screen">
+    <div className="min-h-screen relative overflow-hidden flex flex-col items-center">
+      {/* Pride gradient background */}
+      <div className="fixed inset-0 -z-10 opacity-[0.07]" style={{
+        background: "linear-gradient(180deg, hsl(var(--pride-red)) 0%, hsl(var(--pride-orange)) 16%, hsl(var(--pride-yellow)) 33%, hsl(var(--pride-green)) 50%, hsl(var(--pride-blue)) 66%, hsl(var(--pride-purple)) 83%, hsl(var(--pride-red)) 100%)"
+      }} />
+      <div className="fixed inset-0 -z-10 bg-background/80" />
+
+      <div className="w-full max-w-md mx-auto px-5 py-8 flex flex-col min-h-screen">
         {screen >= 2 && screen <= 11 && (
           <div className="mb-6">
             <ProgressBar current={screen - 1} total={10} />
           </div>
         )}
-        <div className="flex-1 flex flex-col justify-center animate-fade-in">
+        <div
+          className={`flex-1 flex flex-col justify-center transition-all duration-250 ease-out ${
+            transitioning
+              ? "opacity-0 translate-y-3"
+              : "opacity-100 translate-y-0"
+          }`}
+        >
           {renderScreen()}
         </div>
         {screen < 12 && <Footer />}
