@@ -328,7 +328,7 @@ const ExplorerFlow = () => {
                   </div>
                 )}
                 <div className="flex gap-3">
-                  <PrimaryButton onClick={() => { saveToHistory(); setScreen(0); setAnswers({}); setFeedbackGiven(false); }}>
+                  <PrimaryButton onClick={() => { saveToHistory(); goTo(0); setAnswers({}); setFeedbackGiven(false); }}>
                     Save & Done
                   </PrimaryButton>
                   <SecondaryButton onClick={() => setShowHistory(true)}>
