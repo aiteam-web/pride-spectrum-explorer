@@ -105,12 +105,15 @@ const ExplorerFlow = () => {
       case 0:
         return (
           <ScreenWrapper>
-            <div className="text-center">
-              <h1 className="text-2xl font-semibold text-foreground mb-4">Sexuality Spectrum Explorer</h1>
-              <p className="text-muted-foreground leading-relaxed mb-8">
+            <div className="text-center px-2">
+              <h1 className="text-2xl font-semibold text-foreground mb-3">Sexuality Spectrum Explorer</h1>
+              <p className="text-muted-foreground leading-relaxed mb-10">
                 Explore your attraction, at your own pace.
               </p>
-              <PrimaryButton onClick={next}>Start</PrimaryButton>
+              <div className="space-y-3">
+                <PrimaryButton onClick={next}>Start</PrimaryButton>
+                <SecondaryButton onClick={() => setShowHistory(true)}>View Past History</SecondaryButton>
+              </div>
             </div>
           </ScreenWrapper>
         );
@@ -133,9 +136,9 @@ const ExplorerFlow = () => {
                 It's okay if your feelings are still evolving or unclear.
               </p>
             </div>
-            <div className="flex gap-3">
-              <SecondaryButton onClick={prev}>Go Back</SecondaryButton>
+            <div className="space-y-3">
               <PrimaryButton onClick={next}>Continue</PrimaryButton>
+              <SecondaryButton onClick={prev}>Go Back</SecondaryButton>
             </div>
           </ScreenWrapper>
         );
@@ -327,12 +330,12 @@ const ExplorerFlow = () => {
                     </p>
                   </div>
                 )}
-                <div className="flex gap-3">
+                <div className="space-y-3">
                   <PrimaryButton onClick={() => { saveToHistory(); goTo(0); setAnswers({}); setFeedbackGiven(false); }}>
                     Save & Done
                   </PrimaryButton>
                   <SecondaryButton onClick={() => setShowHistory(true)}>
-                    Past History
+                    View Past History
                   </SecondaryButton>
                 </div>
               </div>
@@ -423,7 +426,7 @@ const QuestionScreen = ({ title, category, categoryColor, options, selected, onS
         <p className="text-sm text-muted-foreground text-justified italic">{helperText}</p>
       </div>
     )}
-    <div className="flex gap-3">
+    <div className="space-y-3">
       {showSkip && <SecondaryButton onClick={onNext}>Skip</SecondaryButton>}
       <PrimaryButton onClick={onNext} disabled={!selected && !showSkip}>Next</PrimaryButton>
     </div>
@@ -434,7 +437,7 @@ const PrimaryButton = ({ onClick, children, disabled }: { onClick: () => void; c
   <button
     onClick={onClick}
     disabled={disabled}
-    className="flex-1 py-3.5 rounded-2xl bg-primary text-primary-foreground font-medium transition-all duration-300 hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"
+    className="w-full py-4 rounded-2xl bg-primary text-primary-foreground font-medium text-base transition-all duration-300 hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"
   >
     {children}
   </button>
@@ -443,7 +446,7 @@ const PrimaryButton = ({ onClick, children, disabled }: { onClick: () => void; c
 const SecondaryButton = ({ onClick, children }: { onClick: () => void; children: React.ReactNode }) => (
   <button
     onClick={onClick}
-    className="flex-1 py-3.5 rounded-2xl bg-card text-foreground font-medium border border-border transition-all duration-300 hover:bg-accent"
+    className="w-full py-4 rounded-2xl bg-card text-foreground font-medium text-base border border-border transition-all duration-300 hover:bg-accent"
   >
     {children}
   </button>
