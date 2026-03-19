@@ -30,13 +30,24 @@ const ExplorerFlow = () => {
   const [answers, setAnswers] = useState<Answers>({});
   const [showHistory, setShowHistory] = useState(false);
   const [feedbackGiven, setFeedbackGiven] = useState(false);
+  const [transitioning, setTransitioning] = useState(false);
+  const [direction, setDirection] = useState<"forward" | "back">("forward");
 
   const setAnswer = (key: keyof Answers, value: string) => {
     setAnswers((prev) => ({ ...prev, [key]: value }));
   };
 
-  const next = () => setScreen((s) => s + 1);
-  const prev = () => setScreen((s) => Math.max(0, s - 1));
+  const goTo = (target: number) => {
+    setDirection(target > screen ? "forward" : "back");
+    setTransitioning(true);
+    setTimeout(() => {
+      setScreen(target);
+      setTransitioning(false);
+    }, 250);
+  };
+
+  const next = () => goTo(screen + 1);
+  const prev = () => goTo(Math.max(0, screen - 1));
 
   const generateResult = (): string[] => {
     const lines: string[] = [];
