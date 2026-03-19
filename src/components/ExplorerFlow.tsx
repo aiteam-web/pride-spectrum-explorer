@@ -373,11 +373,20 @@ interface QuestionScreenProps {
   
 }
 
-const QuestionScreen = ({ title, category, categoryColor, options, selected, onSelect, onNext, showSkip,  helperText }: QuestionScreenProps) => (
+const categoryColorMap: Record<string, string> = {
+  "pride-red": "text-pride-red",
+  "pride-orange": "text-pride-orange",
+  "pride-yellow": "text-pride-yellow",
+  "pride-green": "text-pride-green",
+  "pride-blue": "text-pride-blue",
+  "pride-purple": "text-pride-purple",
+};
+
+const QuestionScreen = ({ title, category, categoryColor, options, selected, onSelect, onNext, showSkip, helperText }: QuestionScreenProps) => (
   <ScreenWrapper>
     {category && (
       <div className="mb-2">
-        <span className={`text-xs font-medium text-${categoryColor} uppercase tracking-wider`}>{category}</span>
+        <span className={`text-xs font-medium ${categoryColorMap[categoryColor || ""] || "text-muted-foreground"} uppercase tracking-wider`}>{category}</span>
       </div>
     )}
     <h2 className="text-lg font-semibold text-foreground mb-6 text-justified">{title}</h2>
