@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import ProgressBar from "./ProgressBar";
 import OptionButton from "./OptionButton";
 import HistoryScreen from "./HistoryScreen";
