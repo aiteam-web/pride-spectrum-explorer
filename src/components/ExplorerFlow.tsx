@@ -426,7 +426,7 @@ const QuestionScreen = ({ title, category, categoryColor, options, selected, onS
         <p className="text-sm text-muted-foreground text-justified italic">{helperText}</p>
       </div>
     )}
-    <div className="flex gap-3">
+    <div className="space-y-3">
       {showSkip && <SecondaryButton onClick={onNext}>Skip</SecondaryButton>}
       <PrimaryButton onClick={onNext} disabled={!selected && !showSkip}>Next</PrimaryButton>
     </div>
