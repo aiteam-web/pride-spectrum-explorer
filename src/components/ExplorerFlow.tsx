@@ -47,7 +47,13 @@ const ExplorerFlow = () => {
   };
 
   const next = () => goTo(screen + 1);
-  const prev = () => goTo(Math.max(0, screen - 1));
+  const prev = () => {
+    if (screen === 0) {
+      window.history.back();
+      return;
+    }
+    goTo(Math.max(0, screen - 1));
+  };
 
   const generateResult = (): string[] => {
     const lines: string[] = [];
@@ -360,7 +366,7 @@ const ExplorerFlow = () => {
       <div className="fixed inset-0 -z-10 bg-background/80" />
 
       <div className="w-full max-w-md mx-auto px-5 py-8 flex flex-col min-h-screen relative">
-        {screen > 0 && (
+        {(
           <button
             onClick={prev}
             className="absolute top-8 left-5 w-10 h-10 flex items-center justify-center rounded-full bg-card border border-border text-foreground hover:bg-accent transition-colors z-10"
