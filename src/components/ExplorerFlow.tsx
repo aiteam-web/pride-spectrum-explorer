@@ -47,7 +47,13 @@ const ExplorerFlow = () => {
   };
 
   const next = () => goTo(screen + 1);
-  const prev = () => goTo(Math.max(0, screen - 1));
+  const prev = () => {
+    if (screen === 0) {
+      window.history.back();
+      return;
+    }
+    goTo(Math.max(0, screen - 1));
+  };
 
   const generateResult = (): string[] => {
     const lines: string[] = [];
