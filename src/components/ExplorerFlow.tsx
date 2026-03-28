@@ -452,7 +452,7 @@ const PrimaryButton = ({ onClick, children, disabled }: { onClick: () => void; c
   <button
     onClick={onClick}
     disabled={disabled}
-    className="w-full py-4 rounded-2xl bg-primary text-primary-foreground font-medium text-base transition-all duration-300 hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"
+    className="w-full py-4 rounded-2xl bg-pride-orange text-white font-medium text-base transition-all duration-300 hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed"
   >
     {children}
   </button>
