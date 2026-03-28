@@ -360,10 +360,10 @@ const ExplorerFlow = () => {
   return (
     <div className="min-h-screen relative overflow-hidden flex flex-col items-center">
       {/* Pride gradient background */}
-      <div className="fixed inset-0 -z-10 opacity-[0.18]" style={{
+      <div className="fixed inset-0 -z-10 opacity-30" style={{
         background: "linear-gradient(180deg, hsl(var(--pride-red)) 0%, hsl(var(--pride-orange)) 16%, hsl(var(--pride-yellow)) 33%, hsl(var(--pride-green)) 50%, hsl(var(--pride-blue)) 66%, hsl(var(--pride-purple)) 83%, hsl(var(--pride-red)) 100%)"
       }} />
-      <div className="fixed inset-0 -z-10 bg-background/60" />
+      <div className="fixed inset-0 -z-10 bg-background/50" />
 
       <div className="w-full max-w-md mx-auto px-5 py-8 flex flex-col min-h-screen relative">
         {(

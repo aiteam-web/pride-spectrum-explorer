@@ -36,13 +36,13 @@
 
     --radius: 1rem;
 
-    /* Pride palette - muted */
-    --pride-red: 0 38% 61%;
-    --pride-orange: 25 50% 62%;
-    --pride-yellow: 45 45% 66%;
-    --pride-green: 105 28% 59%;
-    --pride-blue: 217 30% 66%;
-    --pride-purple: 303 10% 59%;
+    /* Pride palette - vibrant */
+    --pride-red: 0 72% 56%;
+    --pride-orange: 30 85% 58%;
+    --pride-yellow: 48 90% 58%;
+    --pride-green: 140 55% 46%;
+    --pride-blue: 220 65% 55%;
+    --pride-purple: 280 55% 55%;
 
     --sidebar-background: 270 20% 96%;
     --sidebar-foreground: 270 10% 25%;
